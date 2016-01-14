@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<doEdgeTransform scan="../thread/scanManifest.xml">
+	<edgeOutput wavelet="haar1" steps="1" name="haar-01" />
+	<edgeOutput wavelet="haar1" steps="2" name="haar-02" />
+	<edgeOutput wavelet="haar1" steps="3" name="haar-03" />
+</doEdgeTransform>
