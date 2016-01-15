@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import bitwise.apps.focusscan.scan.ScanFile;
 import config.Config;
 import config.ConfigException;
 import config.ConfigFilter;
@@ -50,6 +51,9 @@ public class Edgeocl {
 			for (ConfigFilter filter : config.getFilters()) {
 				System.out.format("  %s: %s (%d steps)\n", filter.getPath(), filter.getWavelet().getName(), filter.getSteps());
 			}
+			
+			ScanFile scanFile = new ScanFile(config.getScanManifestPath());
+			System.out.format("Images in scan: %d\n", scanFile.getData().size());
 		} catch (ParserConfigurationException | SAXException | IOException | ConfigException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
