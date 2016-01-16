@@ -19,6 +19,13 @@ public class FloatImg {
 			arr[i] = (rgb[3*i] + rgb[3*i + 1] + rgb[3*i + 2])/3;
 	}
 	
+	public FloatImg(int in_type, float[] in_arr, Imgdim in_dim) {
+		type = in_type;
+		height = in_dim.height;
+		width = in_dim.width;
+		arr = in_arr;
+	}
+	
 	float max = -1;
 	
 	public void stats() {

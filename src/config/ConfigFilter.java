@@ -37,17 +37,23 @@ public class ConfigFilter {
 	}
 	
 	private final Wavelet wavelet;
+	private final String waveletName;
 	private final int steps;
 	private final Path path;
 	
 	public ConfigFilter(String in_wavelet, int in_steps, Path in_path) throws UnknownWaveletException {
 		wavelet = _getWavelet(in_wavelet);
+		waveletName = in_wavelet;
 		steps = in_steps;
 		path = in_path;
 	}
 	
 	public Wavelet getWavelet() {
 		return wavelet;
+	}
+	
+	public String getWaveletName() {
+		return waveletName;
 	}
 	
 	public int getSteps() {
