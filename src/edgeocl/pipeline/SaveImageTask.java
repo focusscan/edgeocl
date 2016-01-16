@@ -28,6 +28,8 @@ public class SaveImageTask implements Runnable {
 	public void run() {
 		try {
 			FloatImg fi = new FloatImg(imgType, img, dim);
+			//fi.stats(false);
+			//fi.rescale(false);
 			BufferedImage bi = fi.toBufferedImage();
 			ImageIO.write(bi, "BMP", imagePath.toFile());
 			

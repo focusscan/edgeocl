@@ -35,6 +35,19 @@ public class Transpose extends Transform {
 			  .putArg(dim.height)
 			  .putNullArg((BLOCK_DIM + 1) * BLOCK_DIM * FLOAT_SIZE);
 		queue.put2DRangeKernel(kernel, 0, 0, roundUp(BLOCK_DIM, dim.width), roundUp(BLOCK_DIM, dim.height), BLOCK_DIM, BLOCK_DIM);
+		queue.finish();
 		dim.transpose();
+	}
+	
+	public void copy(CLBuffer<FloatBuffer> out, CLBuffer<FloatBuffer> in, Imgdim dim) {
+		CLKernel kernel = program.createCLKernel("simple_copy");
+		kernel.putArg(out)
+			  .putArg(in)
+			  .putArg(0)
+			  .putArg(dim.width)
+			  .putArg(dim.height);
+			  // .putNullArg((BLOCK_DIM + 1) * BLOCK_DIM * FLOAT_SIZE);
+		queue.put2DRangeKernel(kernel, 0, 0, roundUp(BLOCK_DIM, dim.width), roundUp(BLOCK_DIM, dim.height), BLOCK_DIM, BLOCK_DIM);
+		queue.finish();
 	}
 }

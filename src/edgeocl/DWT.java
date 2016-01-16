@@ -35,7 +35,7 @@ public class DWT extends Transform {
 	public DWT(CLContext in_context, CLCommandQueue in_queue, Wavelet in_wavelet) throws IOException {
 		context = in_context;
 		queue = in_queue;
-		if (null == program || program.getContext() != in_context) {
+		if (null == program) {
 			program = context.createProgram(getStreamFor("/wavelet.cl"));
 	        program.build(CompilerOptions.FAST_RELAXED_MATH);
 	        assert program.isExecutable();
@@ -56,6 +56,8 @@ public class DWT extends Transform {
 		queue.putWriteBuffer(waveletDecomp, true);
 		queue.putWriteBuffer(scalingRecomp, true);
 		queue.putWriteBuffer(waveletRecomp, true);
+		
+		queue.finish();
 	}
 	
 	public void forward(CLBuffer<FloatBuffer> out, CLBuffer<FloatBuffer> in, Imgdim dim, Imgdim lim_dim) {
@@ -75,6 +77,7 @@ public class DWT extends Transform {
 		int localWorkSize = queue.getDevice().getMaxWorkGroupSize();
         int globalWorkSize = roundUp(localWorkSize, dim.width);
 		queue.put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize);
+		queue.finish();
 	}
 	
 	public void reverse(CLBuffer<FloatBuffer> out, CLBuffer<FloatBuffer> in, Imgdim dim, Imgdim lim_dim) {
@@ -94,6 +97,7 @@ public class DWT extends Transform {
 		int localWorkSize = queue.getDevice().getMaxWorkGroupSize();
         int globalWorkSize = roundUp(localWorkSize, dim.width);
 		queue.put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize);
+		queue.finish();
 	}
 	
 	public void zero(CLBuffer<FloatBuffer> inout, Imgdim dim, Imgdim lim_dim) {
@@ -106,5 +110,6 @@ public class DWT extends Transform {
 		int localWorkSize = queue.getDevice().getMaxWorkGroupSize();
         int globalWorkSize = roundUp(localWorkSize, dim.width);
 		queue.put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize);
+		queue.finish();
 	}
 }

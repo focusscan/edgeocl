@@ -28,10 +28,13 @@ public class FloatImg {
 	
 	float max = -1;
 	
-	public void stats() {
+	public void stats(boolean print) {
 		for (int i = 0; i < height * width; i++) {
 			max = Math.max(max, Math.abs(arr[i]));
 		}
+		
+		if (!print)
+			return;
 		
 		float histx[] = new float[10];
 		int histy[] = new int[histx.length];

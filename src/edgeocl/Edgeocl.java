@@ -164,5 +164,7 @@ public class Edgeocl {
 		oclThread.interrupt();
 		oclThread.join();
 		pipeline.savePool.shutdown();
+		
+		queue.release();
 	}
 }
