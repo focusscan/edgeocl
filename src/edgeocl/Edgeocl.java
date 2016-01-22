@@ -1,6 +1,7 @@
 package edgeocl;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +29,8 @@ import edgeocl.pipeline.Pipeline;
 public class Edgeocl {
 	private static final String LIST_WAVELETS = "--list-wavelets";
 	private static final String LIST_OPENCL = "--list-opencl";
+
+	
 	
 	public static void main(String[] args) {
 		if (args.length < 1) {
@@ -125,7 +128,7 @@ public class Edgeocl {
 				
 				EdgeFileDatum edgeFileDatum = new EdgeFileDatum();
 				edgeFileDatum.setImageNumber(scanFileDatum.getImageNumber());
-				edgeFileDatum.setPath(String.format("%s.bmp", stillName));
+				edgeFileDatum.setPath(String.format("%s.h5", stillName));
 				edgeFile.getData().add(edgeFileDatum);
 				
 				outputCount++;
